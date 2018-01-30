@@ -1,8 +1,9 @@
 import React, { PureComponent } from "react";
 import { withRouter } from "react-router";
 
-import "../scss/index.scss";
-import "../scss/common/reset.css";
+import "../styles/index.less";
+import "../styles/common/reset.css";
+import "antd-mobile/dist/antd-mobile.less";
 
 class App extends PureComponent {
     state = {

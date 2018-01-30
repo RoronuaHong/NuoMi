@@ -4,6 +4,7 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const glob = require("glob");
 const ServiceWorkerWebpackPlugin = require("serviceworker-webpack-plugin");
+const theme = require('./package.json').theme;
 
 //设置路径
 const distPath = path.resolve(__dirname, "dist");
@@ -30,60 +31,51 @@ const config = {
                     path.join(__dirname, "node_modules")
                 ],
                 use: ["babel-loader"]
-                // use: [
-                //     {
-                //         loader: "babel-loader",
-                //         options: {
-                //             presets: ["env"],
-                //             plugins: [
-                //                 "transform-runtime"
-                //             ]
-                //         }
-                //     }
-                // ]
             },
-            /*压缩css*/
             {
-                test: /\.(css|scss)$/,
-                exclude: [
-                    path.join(__dirname, "node_modules")
+                test: /\.css$/,
+                use: [
+                    'style-loader',
+                    'css-loader',
                 ],
-                use: ExtractTextPlugin.extract({
-                    fallback: "style-loader",
-                    use: [
-                        {
-                            loader: "css-loader",
-                            options: {
-                                minimize: true
-                            }
-                        },
-                        {
-                            loader: "postcss-loader",
-                            options: {
-                                ident: 'postcss',
-                                plugins: [
-                                    require('autoprefixer')({
-                                        browsers: [
-                                            'Chrome >= 35',
-                                            'Firefox >= 38',
-                                            'Edge >= 12',
-                                            'Explorer >= 10',
-                                            'iOS >= 8',
-                                            'Safari >= 8',
-                                            'Android 2.3',
-                                            'Android >= 4',
-                                            'Opera >= 12'
-                                        ],
-                                        cascade: true,
-                                        add: true,
-                                        remove: true
-                                    })
-                                ]
-                            }
-                        },
-                        "sass-loader"
-                    ]
-                })
+            },
+            {
+                test: /\.less$/,
+                use: [
+                    'style-loader',
+                    'css-loader',
+                    { 
+                        loader: 'less-loader', 
+                        options: { 
+                            modifyVars: theme 
+                        } 
+                    },
+                    {
+                        loader: "postcss-loader",
+                        options: {
+                            ident: 'postcss',
+                            plugins: [
+                                require('autoprefixer')({
+                                    browsers: [
+                                        'Chrome >= 35',
+                                        'Firefox >= 38',
+                                        'Edge >= 12',
+                                        'Explorer >= 10',
+                                        'iOS >= 8',
+                                        'Safari >= 8',
+                                        'Android 2.3',
+                                        'Android >= 4',
+                                        'Opera >= 12'
+                                    ],
+                                    cascade: true,
+                                    add: true,
+                                    remove: true
+                                })
+                            ]
+                        }
+                    }
+                ],
+                include: /node_modules/,
             },
             /*压缩图片*/
             {
