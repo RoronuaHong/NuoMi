@@ -1,15 +1,34 @@
 import React, { PureComponent } from "react";
+import { withRouter } from "react-router";
+
+import "../scss/index.scss";
+import "../scss/common/reset.css";
 
 class App extends PureComponent {
-    constructor(props, context) {
-        super(props, context);
+    state = {
+        initDone: false
     }
 
-    render() {
+    componentDidMount() {
+        setTimeout(() => {
+            this.setState({
+                initDone: true
+            });
+        }, 1000);
+    }
+
+    render() {        
         return (
-            <div>App</div>
+            <React.Fragment>
+                {
+                    this.state.initDone ?
+                        this.props.children
+                        :
+                        <div>Loading...</div>
+                }
+            </React.Fragment>
         )
     }
 }
 
-export default App;
+export default withRouter(App);

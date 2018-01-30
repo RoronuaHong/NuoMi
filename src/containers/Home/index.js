@@ -1,4 +1,6 @@
-import React, { PureComponent } from "react";
+import React, { PureComponent, Fragment } from "react";
+import { withRouter } from "react-router";
+import { Button } from "antd-mobile";
 
 class Home extends PureComponent {
     constructor(props, context) {
@@ -7,9 +9,11 @@ class Home extends PureComponent {
 
     render() {
         return (
-            <div>Home</div>
+            <React.Fragment>
+                <Button>Start</Button>
+            </React.Fragment>
         )
     }
 }
 
-export default Home;
+export default withRouter(Home);
