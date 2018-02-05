@@ -6,35 +6,7 @@ import Count from "./reducers/count";
 
 let stores = createStore(Count);
 
-stores.subscribe(() => {
-    console.log(stores.getState()); 
-});
-
-stores.dispatch({
-    type: "ADD_COUNT"
-});
-
 render(
-    <div>
-        <div
-            onClick={() => { 
-                stores.dispatch({
-                    type: "ADD_COUNT"
-                });
-            }}
-        >
-            +
-        </div>
-        <div
-            onClick={() => {
-                stores.dispatch({
-                    type: "DEL_COUNT"
-                });
-            }}
-        >
-            -
-        </div>
-        <Router />
-    </div>,
+    <Router />,
     document.getElementById("root")
 )

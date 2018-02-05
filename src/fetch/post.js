@@ -17,14 +17,16 @@ function obj2Params(obj) {
 
 //发送post请求
 export function post(url, paramsObj) {
-    const result = post(url, {
+    const result = fetch(url, {
         method: "POST",
+        credentials: "include",
         headers: {
-            credentials: "include",
-            "Accept": "application/json, text/json, */*"
+            "Accept": "application/json, text/json, */*",
+            "Content-Type": "application/x-www-form-urlencoded"
         },
         body: obj2Params(paramsObj)
     });
 
     return result;
 }
+
